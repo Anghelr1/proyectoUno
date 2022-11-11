@@ -1,3 +1,4 @@
+import java.sql.SQLOutput;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -88,273 +89,343 @@ public class Replanteamiento {
                 Repartidor(p2);
                 while (!VFstate) {
                     int tirada = 0;
-                    boolean VForden1 = false;
-                    while (!VForden1){
-                        if (p1.length > 0) {
-                            tarjeta(String.valueOf(cartaActual));
-                            System.out.println();
-                            boolean VFcartaComida = false;
-                            while (!VFcartaComida){
-                                Impresor(p1);
-                                System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
-                                int comida = lector.nextInt();
-                                boolean VFcomida = false;
-                                while (!VFcomida) {
-                                    if (comida < 1 || comida > 2) {
-                                        System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                        comida = lector.nextInt();
-                                    } else {
-                                        tarjeta(String.valueOf(cartaActual));
-                                        System.out.println();
-                                        VFcomida = true;
-                                    }
-                                }
-                                if (comida == 1) {
+                    boolean orden1 = false;
+                    while (!orden1) {
+                        System.out.println("IMMPRIMIENDO DESDE ORDEN 1");
+                        if (!orden1) {
+                            if (p1.length > 0) {
+                                tarjeta(String.valueOf(cartaActual));
+                                System.out.println();
+                                boolean VFcartaComida = false;
+                                while (!VFcartaComida) {
                                     Impresor(p1);
-                                    int numeroRandom = nRandom(11);
-                                    p1 = addElement(p1, numeroRandom);
-                                    if (numeroRandom == 0) {
-                                        carta0 -= 1;
-                                    } else if (numeroRandom == 1) {
-                                        carta1 -= 1;
-                                    } else if (numeroRandom == 2) {
-                                        carta2 -= 2;
-                                    } else if (numeroRandom == 3) {
-                                        carta3 -= 3;
-                                    } else if (numeroRandom == 4) {
-                                        carta4 -= 4;
-                                    } else if (numeroRandom == 5) {
-                                        carta5 -= 5;
-                                    } else if (numeroRandom == 6) {
-                                        carta6 -= 6;
-                                    } else if (numeroRandom == 7) {
-                                        carta7 -= 7;
-                                    } else if (numeroRandom == 8) {
-                                        carta8 -= 8;
-                                    } else if (numeroRandom == 9) {
-                                        carta9 -= 9;
-                                    } else if (numeroRandom == 10) {
-                                        bloqueo -= 10;
-                                    } else if (numeroRandom == 11) {
-                                        reversa -= 11;
+                                    System.out.println("Jugador 1");
+                                    System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
+                                    int comida = lector.nextInt();
+                                    boolean VFcomida = false;
+                                    while (!VFcomida) {
+                                        if (comida < 1 || comida > 2) {
+                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
+                                            comida = lector.nextInt();
+                                        } else {
+                                            tarjeta(String.valueOf(cartaActual));
+                                            System.out.println();
+                                            VFcomida = true;
+                                        }
                                     }
-                                } else if (comida == 2) {
-                                    VFcartaComida = true;
+                                    if (comida == 1) {
+                                        Impresor(p1);
+                                        int numeroRandom = nRandom(11);
+                                        p1 = addElement(p1, numeroRandom);
+                                        if (numeroRandom == 0) {
+                                            carta0 -= 1;
+                                        } else if (numeroRandom == 1) {
+                                            carta1 -= 1;
+                                        } else if (numeroRandom == 2) {
+                                            carta2 -= 1;
+                                        } else if (numeroRandom == 3) {
+                                            carta3 -= 1;
+                                        } else if (numeroRandom == 4) {
+                                            carta4 -= 1;
+                                        } else if (numeroRandom == 5) {
+                                            carta5 -= 1;
+                                        } else if (numeroRandom == 6) {
+                                            carta6 -= 1;
+                                        } else if (numeroRandom == 7) {
+                                            carta7 -= 1;
+                                        } else if (numeroRandom == 8) {
+                                            carta8 -= 1;
+                                        } else if (numeroRandom == 9) {
+                                            carta9 -= 1;
+                                        } else if (numeroRandom == 10) {
+                                            bloqueo -= 1;
+                                        } else if (numeroRandom == 11) {
+                                            reversa -= 1;
+                                        }
+                                    } else if (comida == 2) {
+                                        VFcartaComida = true;
+                                    }
                                 }
-                            }
-                            tirada = validacionCartaTurnoJugador(p1, 1, cartaActual);
-                            cartaActual = tirada;
-                            if (ComodinSalto(tirada)){
-                                continue;
-                            } else {
-                                if (!ComodinReversa(tirada)){
-                                    turnoJugador1(tirada);
+                                tirada = validacionCartaTurnoJugador(p1, 1, cartaActual);
+                                cartaActual = tirada;
+                                if (ComodinSalto(tirada)) {
+                                    for (int i = 0; i < p1.length; i++) {
+                                        if (p1[i] == 10) {
+                                            p1 = removeElement(p1, i);
+                                        }
+                                    }
+                                    continue;
                                 } else {
-                                    VForden1 = true;
-                                }
-                            }
-
-                        } else {
-                            Ganador(1);
-                            VFstate = true;
-                        }
-                        if (p2.length > 0) {
-                            tarjeta(String.valueOf(cartaActual));
-                            System.out.println();
-                            boolean VFcartaComida = false;
-                            while (!VFcartaComida){
-                                Impresor(p2);
-                                System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
-                                int comida = lector.nextInt();
-                                boolean VFcomida = false;
-                                while (!VFcomida) {
-                                    if (comida < 1 || comida > 2) {
-                                        System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                        comida = lector.nextInt();
+                                    if (!ComodinReversa(tirada)) {
+                                        turnoJugador1(tirada);
                                     } else {
-                                        tarjeta(String.valueOf(cartaActual));
-                                        System.out.println();
-                                        VFcomida = true;
+                                        for (int i = 0; i < p1.length; i++) {
+                                            if (p1[i] == 11) {
+                                                p1 = removeElement(p1, i);
+                                            }
+                                        }
+                                        orden1 = true;
                                     }
                                 }
-                                if (comida == 1) {
-                                    Impresor(p2);
-                                    int numeroRandom = nRandom(11);
-                                    p2 = addElement(p2, numeroRandom);
-                                    if (numeroRandom == 0) {
-                                        carta0 -= 1;
-                                    } else if (numeroRandom == 1) {
-                                        carta1 -= 1;
-                                    } else if (numeroRandom == 2) {
-                                        carta2 -= 2;
-                                    } else if (numeroRandom == 3) {
-                                        carta3 -= 3;
-                                    } else if (numeroRandom == 4) {
-                                        carta4 -= 4;
-                                    } else if (numeroRandom == 5) {
-                                        carta5 -= 5;
-                                    } else if (numeroRandom == 6) {
-                                        carta6 -= 6;
-                                    } else if (numeroRandom == 7) {
-                                        carta7 -= 7;
-                                    } else if (numeroRandom == 8) {
-                                        carta8 -= 8;
-                                    } else if (numeroRandom == 9) {
-                                        carta9 -= 9;
-                                    } else if (numeroRandom == 10) {
-                                        bloqueo -= 10;
-                                    } else if (numeroRandom == 11) {
-                                        reversa -= 11;
-                                    }
-                                } else if (comida == 2) {
-                                    VFcartaComida = true;
-                                }
-                            }
-                            tirada = validacionCartaTurnoJugador(p2, 2, cartaActual);
-                            cartaActual = tirada;
-                            if (!ComodinReversa(tirada)){
-                                turnoJugador2(tirada);
+
                             } else {
-                                VForden1 = true;
+                                Ganador(1);
+                                VFstate = true;
                             }
-                        } else {
-                            Ganador(2);
-                            VFstate = true;
+                        }
+                        if (!orden1) {
+                            if (p2.length > 0) {
+                                tarjeta(String.valueOf(cartaActual));
+                                System.out.println();
+                                boolean VFcartaComida = false;
+                                while (!VFcartaComida) {
+                                    Impresor(p2);
+                                    System.out.println("Jugador 2");
+                                    System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
+                                    int comida = lector.nextInt();
+                                    boolean VFcomida = false;
+                                    while (!VFcomida) {
+                                        if (comida < 1 || comida > 2) {
+                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
+                                            comida = lector.nextInt();
+                                        } else {
+                                            tarjeta(String.valueOf(cartaActual));
+                                            System.out.println();
+                                            VFcomida = true;
+                                        }
+                                    }
+                                    if (comida == 1) {
+                                        Impresor(p2);
+                                        int numeroRandom = nRandom(11);
+                                        p2 = addElement(p2, numeroRandom);
+                                        if (numeroRandom == 0) {
+                                            carta0 -= 1;
+                                        } else if (numeroRandom == 1) {
+                                            carta1 -= 1;
+                                        } else if (numeroRandom == 2) {
+                                            carta2 -= 1;
+                                        } else if (numeroRandom == 3) {
+                                            carta3 -= 1;
+                                        } else if (numeroRandom == 4) {
+                                            carta4 -= 1;
+                                        } else if (numeroRandom == 5) {
+                                            carta5 -= 1;
+                                        } else if (numeroRandom == 6) {
+                                            carta6 -= 1;
+                                        } else if (numeroRandom == 7) {
+                                            carta7 -= 1;
+                                        } else if (numeroRandom == 8) {
+                                            carta8 -= 1;
+                                        } else if (numeroRandom == 9) {
+                                            carta9 -= 1;
+                                        } else if (numeroRandom == 10) {
+                                            bloqueo -= 1;
+                                        } else if (numeroRandom == 11) {
+                                            reversa -= 1;
+                                        }
+                                    } else if (comida == 2) {
+                                        VFcartaComida = true;
+                                    }
+                                }
+                                tirada = validacionCartaTurnoJugador(p2, 2, cartaActual);
+                                cartaActual = tirada;
+                                if (ComodinSalto(tirada)) {
+                                    for (int i = 0; i < p2.length; i++) {
+                                        if (p2[i] == 10) {
+                                            p2 = removeElement(p2, i);
+                                        }
+                                    }
+                                    continue;
+                                } else {
+                                    if (!ComodinReversa(tirada)) {
+                                        turnoJugador1(tirada);
+                                    } else {
+                                        for (int i = 0; i < p2.length; i++) {
+                                            if (p2[i] == 11) {
+                                                p2 = removeElement(p2, i);
+                                            }
+                                        }
+                                        orden1 = true;
+                                    }
+                                }
+
+                            } else {
+                                Ganador(1);
+                                VFstate = true;
+                            }
                         }
                     }
-                    boolean VForden2 = false;
-                    while (!VForden2){
-                        if (p2.length > 0) {
-                            tarjeta(String.valueOf(cartaActual));
-                            System.out.println();
-                            boolean VFcartaComida = false;
-                            while (!VFcartaComida){
-                                Impresor(p2);
-                                System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
-                                int comida = lector.nextInt();
-                                boolean VFcomida = false;
-                                while (!VFcomida) {
-                                    if (comida < 1 || comida > 2) {
-                                        System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                        comida = lector.nextInt();
-                                    } else {
-                                        tarjeta(String.valueOf(cartaActual));
-                                        System.out.println();
-                                        VFcomida = true;
-                                    }
-                                }
-                                if (comida == 1) {
+                    boolean orden2 = false;
+                    while (!orden2) {
+                        System.out.println("IMPRIMIENDO DESDE ORDEN 2");
+                        if (!orden2) {
+                            if (p2.length > 0) {
+                                tarjeta(String.valueOf(cartaActual));
+                                System.out.println();
+                                boolean VFcartaComida = false;
+                                while (!VFcartaComida) {
                                     Impresor(p2);
-                                    int numeroRandom = nRandom(11);
-                                    p2 = addElement(p2, numeroRandom);
-                                    if (numeroRandom == 0) {
-                                        carta0 -= 1;
-                                    } else if (numeroRandom == 1) {
-                                        carta1 -= 1;
-                                    } else if (numeroRandom == 2) {
-                                        carta2 -= 2;
-                                    } else if (numeroRandom == 3) {
-                                        carta3 -= 3;
-                                    } else if (numeroRandom == 4) {
-                                        carta4 -= 4;
-                                    } else if (numeroRandom == 5) {
-                                        carta5 -= 5;
-                                    } else if (numeroRandom == 6) {
-                                        carta6 -= 6;
-                                    } else if (numeroRandom == 7) {
-                                        carta7 -= 7;
-                                    } else if (numeroRandom == 8) {
-                                        carta8 -= 8;
-                                    } else if (numeroRandom == 9) {
-                                        carta9 -= 9;
-                                    } else if (numeroRandom == 10) {
-                                        bloqueo -= 10;
-                                    } else if (numeroRandom == 11) {
-                                        reversa -= 11;
+                                    System.out.println("Jugador 2");
+                                    System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
+                                    int comida = lector.nextInt();
+                                    boolean VFcomida = false;
+                                    while (!VFcomida) {
+                                        if (comida < 1 || comida > 2) {
+                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
+                                            comida = lector.nextInt();
+                                        } else {
+                                            tarjeta(String.valueOf(cartaActual));
+                                            System.out.println();
+                                            VFcomida = true;
+                                        }
                                     }
-                                } else if (comida == 2) {
-                                    VFcartaComida = true;
+                                    if (comida == 1) {
+                                        Impresor(p2);
+                                        int numeroRandom = nRandom(11);
+                                        p2 = addElement(p2, numeroRandom);
+                                        if (numeroRandom == 0) {
+                                            carta0 -= 1;
+                                        } else if (numeroRandom == 1) {
+                                            carta1 -= 1;
+                                        } else if (numeroRandom == 2) {
+                                            carta2 -= 1;
+                                        } else if (numeroRandom == 3) {
+                                            carta3 -= 1;
+                                        } else if (numeroRandom == 4) {
+                                            carta4 -= 1;
+                                        } else if (numeroRandom == 5) {
+                                            carta5 -= 1;
+                                        } else if (numeroRandom == 6) {
+                                            carta6 -= 1;
+                                        } else if (numeroRandom == 7) {
+                                            carta7 -= 1;
+                                        } else if (numeroRandom == 8) {
+                                            carta8 -= 1;
+                                        } else if (numeroRandom == 9) {
+                                            carta9 -= 1;
+                                        } else if (numeroRandom == 10) {
+                                            bloqueo -= 1;
+                                        } else if (numeroRandom == 11) {
+                                            reversa -= 1;
+                                        }
+                                    } else if (comida == 2) {
+                                        VFcartaComida = true;
+                                    }
                                 }
-                            }
-                            tirada = validacionCartaTurnoJugador(p2, 2, cartaActual);
-                            cartaActual = tirada;
-                            if (!ComodinReversa(tirada)){
-                                turnoJugador2(tirada);
-                            } else {
-                                VForden2 = true;
-                            }
-                        } else {
-                            Ganador(2);
-                            VFstate = true;
-                        }
-                        if (p1.length > 0) {
-                            tarjeta(String.valueOf(cartaActual));
-                            System.out.println();
-                            boolean VFcartaComida = false;
-                            while (!VFcartaComida){
-                                Impresor(p1);
-                                System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
-                                int comida = lector.nextInt();
-                                boolean VFcomida = false;
-                                while (!VFcomida) {
-                                    if (comida < 1 || comida > 2) {
-                                        System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                        comida = lector.nextInt();
+                                tirada = validacionCartaTurnoJugador(p2, 2, cartaActual);
+                                cartaActual = tirada;
+                                if (ComodinSalto(tirada)) {
+                                    for (int i = 0; i < p2.length; i++) {
+                                        if (p2[i] == 10) {
+                                            p2 = removeElement(p2, i);
+                                        }
+                                    }
+                                    continue;
+                                } else {
+                                    if (!ComodinReversa(tirada)) {
+                                        turnoJugador1(tirada);
                                     } else {
-                                        tarjeta(String.valueOf(cartaActual));
-                                        System.out.println();
-                                        VFcomida = true;
+                                        for (int i = 0; i < p2.length; i++) {
+                                            if (p2[i] == 11) {
+                                                p2 = removeElement(p2, i);
+                                            }
+                                        }
+                                        orden2 = true;
                                     }
                                 }
-                                if (comida == 1) {
+
+                            } else {
+                                Ganador(1);
+                                VFstate = true;
+                            }
+                        }
+                        if (!orden2) {
+                            if (p1.length > 0) {
+                                tarjeta(String.valueOf(cartaActual));
+                                System.out.println();
+                                boolean VFcartaComida = false;
+                                while (!VFcartaComida) {
                                     Impresor(p1);
-                                    int numeroRandom = nRandom(11);
-                                    p1 = addElement(p1, numeroRandom);
-                                    if (numeroRandom == 0) {
-                                        carta0 -= 1;
-                                    } else if (numeroRandom == 1) {
-                                        carta1 -= 1;
-                                    } else if (numeroRandom == 2) {
-                                        carta2 -= 2;
-                                    } else if (numeroRandom == 3) {
-                                        carta3 -= 3;
-                                    } else if (numeroRandom == 4) {
-                                        carta4 -= 4;
-                                    } else if (numeroRandom == 5) {
-                                        carta5 -= 5;
-                                    } else if (numeroRandom == 6) {
-                                        carta6 -= 6;
-                                    } else if (numeroRandom == 7) {
-                                        carta7 -= 7;
-                                    } else if (numeroRandom == 8) {
-                                        carta8 -= 8;
-                                    } else if (numeroRandom == 9) {
-                                        carta9 -= 9;
-                                    } else if (numeroRandom == 10) {
-                                        bloqueo -= 10;
-                                    } else if (numeroRandom == 11) {
-                                        reversa -= 11;
+                                    System.out.println("Jugador 1");
+                                    System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
+                                    int comida = lector.nextInt();
+                                    boolean VFcomida = false;
+                                    while (!VFcomida) {
+                                        if (comida < 1 || comida > 2) {
+                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
+                                            comida = lector.nextInt();
+                                        } else {
+                                            tarjeta(String.valueOf(cartaActual));
+                                            System.out.println();
+                                            VFcomida = true;
+                                        }
                                     }
-                                } else if (comida == 2) {
-                                    VFcartaComida = true;
+                                    if (comida == 1) {
+                                        Impresor(p1);
+                                        int numeroRandom = nRandom(11);
+                                        p1 = addElement(p1, numeroRandom);
+                                        if (numeroRandom == 0) {
+                                            carta0 -= 1;
+                                        } else if (numeroRandom == 1) {
+                                            carta1 -= 1;
+                                        } else if (numeroRandom == 2) {
+                                            carta2 -= 1;
+                                        } else if (numeroRandom == 3) {
+                                            carta3 -= 1;
+                                        } else if (numeroRandom == 4) {
+                                            carta4 -= 1;
+                                        } else if (numeroRandom == 5) {
+                                            carta5 -= 1;
+                                        } else if (numeroRandom == 6) {
+                                            carta6 -= 1;
+                                        } else if (numeroRandom == 7) {
+                                            carta7 -= 1;
+                                        } else if (numeroRandom == 8) {
+                                            carta8 -= 1;
+                                        } else if (numeroRandom == 9) {
+                                            carta9 -= 1;
+                                        } else if (numeroRandom == 10) {
+                                            bloqueo -= 1;
+                                        } else if (numeroRandom == 11) {
+                                            reversa -= 1;
+                                        }
+                                    } else if (comida == 2) {
+                                        VFcartaComida = true;
+                                    }
                                 }
-                            }
-                            tirada = validacionCartaTurnoJugador(p1, 1, cartaActual);
-                            cartaActual = tirada;
-                            if (!ComodinReversa(tirada)){
-                                turnoJugador1(tirada);
+                                tirada = validacionCartaTurnoJugador(p1, 1, cartaActual);
+                                cartaActual = tirada;
+                                if (ComodinSalto(tirada)) {
+                                    for (int i = 0; i < p1.length; i++) {
+                                        if (p1[i] == 10) {
+                                            p1 = removeElement(p1, i);
+                                        }
+                                    }
+                                    continue;
+                                } else {
+                                    if (!ComodinReversa(tirada)) {
+                                        turnoJugador1(tirada);
+                                    } else {
+                                        for (int i = 0; i < p1.length; i++) {
+                                            if (p1[i] == 11) {
+                                                p1 = removeElement(p1, i);
+                                            }
+                                        }
+                                        orden2 = true;
+                                    }
+                                }
+
                             } else {
-                                VForden2 = true;
+                                Ganador(1);
+                                VFstate = true;
                             }
-                        } else {
-                            Ganador(1);
-                            VFstate = true;
                         }
                     }
-
                 }
             } else if (jugadoresTotales == 3) {
                 System.out.println("Jugando con tres wercos");
+
+
             } else if (jugadoresTotales == 4) {
                 System.out.println("Jugando con cuatro wercos");
             }
@@ -517,7 +588,7 @@ public class Replanteamiento {
     public static int validacionCartaTurnoJugador(int[] jugador, int nJugador, int cartaActual) {
         Scanner lector = new Scanner(System.in);
         Impresor(jugador);
-        System.out.println("Turno del jugador " + nJugador);
+//        System.out.println("Turno del jugador " + nJugador);
         System.out.print("Elige la carta que deseas tirar: ");
         int cartaTirar = lector.nextInt();
         boolean VFcartaTirar = false;
@@ -536,16 +607,18 @@ public class Replanteamiento {
         }
         return cartaTirar;
     }
+
     /*====== Comodin reversa ====== */
-    public static boolean ComodinReversa(int carta){
-        if (carta == 11){
+    public static boolean ComodinReversa(int carta) {
+        if (carta == 11) {
             return true;
-        }else {
+        } else {
             return false;
         }
     }
-    public static boolean ComodinSalto(int carta){
-        if (carta == 10){
+
+    public static boolean ComodinSalto(int carta) {
+        if (carta == 10) {
             return true;
         } else {
             return false;
@@ -642,7 +715,7 @@ public class Replanteamiento {
     }
 
     public static void turnoJugador1(int cartaTirar) {
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= p1.length; i++) {
             if (cartaTirar == i) {
                 boolean VFborrarCarta = false;
                 int j = 0;
@@ -684,7 +757,7 @@ public class Replanteamiento {
     }
 
     public static void turnoJugador2(int cartaTirar) {
-        for (int i = 0; i <= 11; i++) {
+        for (int i = 0; i <= p2.length; i++) {
             if (cartaTirar == i) {
                 boolean VFborrarCarta = false;
                 int j = 0;
@@ -724,4 +797,47 @@ public class Replanteamiento {
             }
         }
     }
+
+    public static void turnoJugador3(int cartaTirar) {
+        for (int i = 0; i <= 11; i++) {
+            if (cartaTirar == i) {
+                boolean VFborrarCarta = false;
+                int j = 0;
+                while (!VFborrarCarta) {
+                    if (p3[j] == i) {
+                        p3 = removeElement(p3, j);
+//                        Impresor(p1);
+                        VFborrarCarta = true;
+                    }
+                    j++;
+                }
+                if (cartaTirar == 0) {
+                    carta0 += 1;
+                } else if (cartaTirar == 1) {
+                    carta1 += 1;
+                } else if (cartaTirar == 2) {
+                    carta2 += 1;
+                } else if (cartaTirar == 3) {
+                    carta3 += 1;
+                } else if (cartaTirar == 4) {
+                    carta4 += 1;
+                } else if (cartaTirar == 5) {
+                    carta5 += 1;
+                } else if (cartaTirar == 6) {
+                    carta6 += 1;
+                } else if (cartaTirar == 7) {
+                    carta7 += 1;
+                } else if (cartaTirar == 8) {
+                    carta8 += 1;
+                } else if (cartaTirar == 9) {
+                    carta9 += 1;
+                } else if (cartaTirar == 10) {
+                    bloqueo += 1;
+                } else if (cartaTirar == 11) {
+                    reversa += 1;
+                }
+            }
+        }
+    }
+
 }

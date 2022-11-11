@@ -14,6 +14,13 @@ public class Main {
     static int carta9[] = {9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9, 9};
     static int bloqueo[] = {10, 10, 10, 10};
     static int reversa[] = {11, 11, 11, 11};
+    static int jugador1[] = new int[0];
+    static int jugador2[] = new int[0];
+    static int jugador3[] = new int[0];
+    static int jugador4[] = new int[0];
+    static int bot1[] = new int[0];
+    static int bot2[] = new int[0];
+    static int bot3[] = new int[0];
 
     public static void main(String[] args) {
         /*====== Sección pruebas inicio ====== */
@@ -21,15 +28,7 @@ public class Main {
         System.out.println("===========================FIN PRUEBAS==========================");
         /*====== Scanner Global ====== */
         Scanner lector = new Scanner(System.in);
-        /*====== Arreglos de cartas     0=Baraja 1=jugador====== */
 
-        int jugador1[] = new int[7];
-        int jugador2[] = new int[7];
-        int jugador3[] = new int[7];
-        int jugador4[] = new int[7];
-        int bot1[] = new int[7];
-        int bot2[] = new int[7];
-        int bot3[] = new int[7];
         /*====== Sumando la cantidad de cartas por toda la baraja ====== */
         int nCartas = carta0.length + carta1.length + carta2.length + carta3.length + carta4.length + carta5.length + carta6.length + carta7.length + carta8.length + carta9.length + bloqueo.length + reversa.length;
         System.out.println("El numero de cartas por toda la baraja son: " + nCartas);
@@ -91,16 +90,20 @@ public class Main {
 
             boolean VFstate = false;
             if (jugadoresTotales == 2) {
-                System.out.println("Jugando con un werco");
+               System.out.println("Jugando con un werco");
                 Repartidor(jugador1);
-                Repartidor(jugador2);
 
-                while (!VFstate) {
-                    TurnoJugador(jugador1,1,lector);
+                Impresor(jugador1);
+                ImpresorCartas();
 
+//                Repartidor(jugador2);
 
-//                    VFstate = true;
-                }
+//                while (!VFstate) {
+//                    TurnoJugador(jugador1,1,lector);
+//
+//
+////                    VFstate = true;
+//                }
 
 
             } else if (jugadoresTotales == 3) {
@@ -172,20 +175,10 @@ public class Main {
 
     public static void VerificadorCarta(int[] carta, int Vcarta, int[] jugador, int i) {
         if (Arrays.stream(carta).anyMatch(b -> b == Vcarta)) { // Si el arreglo contiene cartas válidas
-            boolean VFcarta = false;
-            int x = 0;
-            while (!VFcarta) {
-                if (carta[x] == Vcarta) {
-                    jugador[i] = carta[x];
-                    if (Vcarta == 0) { // Reiniciando variable a un valor nulo para identificar que esa carta ya no es válida
-                        carta[x] = 1;
-                    } else {
-                        carta[x] = 0;
-                    }
-                    VFcarta = true;
-                }
-                x++;
-            }
+            jugador = addElement(jugador,carta[0]);
+            System.out.println(Arrays.toString(jugador));
+            carta = removeElement(carta,0);
+            System.out.println(Arrays.toString(carta));
         }
 //        tarjeta(String.valueOf(jugador[i]));
     }
@@ -215,12 +208,22 @@ public class Main {
     }
 
     /*====== Eliminador de elementos de un array ====== */
-    public static void removeElement(int[] arr, int index) {
-        int[] arrDestination = new int[arr.length - 1];
-        int remainingElements = arr.length - (index + 1);
-        System.arraycopy(arr, 0, arrDestination, 0, index);
-        System.arraycopy(arr, index + 1, arrDestination, index, remainingElements);
-        System.out.println("Elements -- " + Arrays.toString(arrDestination));
+    public static int[] removeElement(int[] arr, int index) {
+        int[] result = new int[arr.length - 1];
+        System.arraycopy(arr, 0, result, 0, index);
+        if (arr.length != index) {
+            System.arraycopy(arr, index + 1, result, index, arr.length - index - 1);
+        }
+        return result;
+    }
+
+    /*====== Agregador de elementos a un array ====== */
+    private static int[] addElement(int[] arr, int element)
+    {
+        int[] array = new int[arr.length + 1];
+        System.arraycopy(arr, 0, array, 0, arr.length);
+        array[arr.length] = element;
+        return array;
     }
 
     /*====== Turno jugador ====== */

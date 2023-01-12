@@ -35,8 +35,8 @@ public class TestBots {
         System.out.println("=                   BIENVENIDO A  UNO UPT                    =");
         System.out.println("==============================================================");
         System.out.println("= Elige tu modo de juego                                     =");
-        System.out.println("= 1........ Multiplayer                                     =");
-        System.out.println("= 2......... Singleplayer                                     =");
+        System.out.println("= 1......... Multiplayer                                     =");
+        System.out.println("= 2......... Singleplayer(NO FUNCIONÓ - ESTADO PRUEBA)       =");
         System.out.println("==============================================================");
         System.out.print("= OPCION:");
         opcionJuego = lector.nextInt();
@@ -1597,10 +1597,10 @@ public class TestBots {
             int nJugadores = 0;
             boolean VFnJugadores = false;
             System.out.println("==============================================================");
-            System.out.println("      Selecciona con cuantos bots quieres jugar      ");
-            System.out.println("1 ........................1 BOT  ");
-            System.out.println("2 ........................2 BOT  ");
-            System.out.println("3 ........................3 BOT  ");
+            System.out.println("      Selecciona con cuantos bots más quieres jugar      ");
+            System.out.println("1 ........................1 Bot  ");
+            System.out.println("2 ........................2 Bot  ");
+            System.out.println("3 ........................3 Bot  ");
             System.out.println("==============================================================");
             System.out.print("Opción: ");
             nJugadores = lector.nextInt();
@@ -1640,8 +1640,8 @@ public class TestBots {
                                 System.out.println();
                                 boolean VFcartaComida = false;
                                 while (!VFcartaComida) {
-                                    Impresor(p1);
                                     System.out.println("Jugador 1");
+                                    Impresor(p1);
                                     System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
                                     int comida = lector.nextInt();
                                     boolean VFcomida = false;
@@ -1716,105 +1716,13 @@ public class TestBots {
                             }
                         }
                         if (!orden1) {
-                            if (bot1.length > 0) {
-                                tarjeta(String.valueOf(cartaActual));
-                                System.out.println();
-                                boolean VFcartaComida = false;
-                                while (!VFcartaComida) {
-                                    Impresor(bot1);
-                                    System.out.println("Jugador 2 Bot 1");
-                                    int comida = 0;
-                                    for (int i = 0; i < bot1.length; i++) {
-                                        if (bot1[i] == cartaActual || bot1[i] == (cartaActual + 1) || bot1[i] == (cartaActual - 1)){
-                                            comida = 2;
-                                        } else {
-                                            comida = 1;
-                                        }
-                                    }
-
-                                    boolean VFcomida = false;
-                                    while (!VFcomida) {
-                                        if (comida < 1 || comida > 2) {
-                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                            comida = nRandom(11);
-                                        } else {
-                                            tarjeta(String.valueOf(cartaActual));
-                                            System.out.println();
-                                            VFcomida = true;
-                                        }
-                                    }
-                                    if (comida == 1) {
-                                        Impresor(bot1);
-                                        int numeroRandom = nRandom(11);
-                                        bot1 = addElement(bot1, numeroRandom);
-                                        if (numeroRandom == 0) {
-                                            carta0 -= 1;
-                                        } else if (numeroRandom == 1) {
-                                            carta1 -= 1;
-                                        } else if (numeroRandom == 2) {
-                                            carta2 -= 1;
-                                        } else if (numeroRandom == 3) {
-                                            carta3 -= 1;
-                                        } else if (numeroRandom == 4) {
-                                            carta4 -= 1;
-                                        } else if (numeroRandom == 5) {
-                                            carta5 -= 1;
-                                        } else if (numeroRandom == 6) {
-                                            carta6 -= 1;
-                                        } else if (numeroRandom == 7) {
-                                            carta7 -= 1;
-                                        } else if (numeroRandom == 8) {
-                                            carta8 -= 1;
-                                        } else if (numeroRandom == 9) {
-                                            carta9 -= 1;
-                                        } else if (numeroRandom == 10) {
-                                            bloqueo -= 1;
-                                        } else if (numeroRandom == 11) {
-                                            reversa -= 1;
-                                        }
-                                    } else if (comida == 2) {
-                                        VFcartaComida = true;
-                                    }
-                                }
-                                tirada = validacionCartaTurnoBot(bot1, 1, cartaActual);
-                                cartaActual = tirada;
-                                if (ComodinSalto(tirada)) {
-                                    for (int i = 0; i < bot1.length; i++) {
-                                        if (bot1[i] == 10) {
-                                            bot1 = removeElement(bot1, i);
-                                        }
-                                    }
-                                    continue;
-                                } else {
-                                    if (!ComodinReversa(tirada)) {
-                                        turnoBot1(tirada);
-                                    } else {
-                                        for (int i = 0; i < bot1.length; i++) {
-                                            if (bot1[i] == 11) {
-                                                bot1 = removeElement(bot1, i);
-                                            }
-                                        }
-                                        orden1 = true;
-                                    }
-                                }
-
-                            } else {
-                                Ganador(1);
-                                VFstate = true;
-                            }
-                        }
-                    }
-                    boolean orden2 = false;
-                    while (!orden2) {
-                        System.out.println("IMPRIMIENDO DESDE ORDEN 2");
-                        if (!orden2) {
                             if (p2.length > 0) {
                                 tarjeta(String.valueOf(cartaActual));
                                 System.out.println();
                                 boolean VFcartaComida = false;
                                 while (!VFcartaComida) {
+                                    System.out.println("Jugador 2 Bot 1");
                                     Impresor(p2);
-                                    System.out.println("Jugador 2");
                                     System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
                                     int comida = lector.nextInt();
                                     boolean VFcomida = false;
@@ -1879,88 +1787,7 @@ public class TestBots {
                                                 p2 = removeElement(p2, i);
                                             }
                                         }
-                                        orden2 = true;
-                                    }
-                                }
-
-                            } else {
-                                Ganador(1);
-                                VFstate = true;
-                            }
-                        }
-                        if (!orden2) {
-                            if (p1.length > 0) {
-                                tarjeta(String.valueOf(cartaActual));
-                                System.out.println();
-                                boolean VFcartaComida = false;
-                                while (!VFcartaComida) {
-                                    Impresor(p1);
-                                    System.out.println("Jugador 1");
-                                    System.out.print("Quieres comer? \n1. Si \n2. No \nOpción: ");
-                                    int comida = lector.nextInt();
-                                    boolean VFcomida = false;
-                                    while (!VFcomida) {
-                                        if (comida < 1 || comida > 2) {
-                                            System.out.print("El valor ingresado no existe, intenta de nuevo: ");
-                                            comida = lector.nextInt();
-                                        } else {
-                                            tarjeta(String.valueOf(cartaActual));
-                                            System.out.println();
-                                            VFcomida = true;
-                                        }
-                                    }
-                                    if (comida == 1) {
-                                        Impresor(p1);
-                                        int numeroRandom = nRandom(11);
-                                        p1 = addElement(p1, numeroRandom);
-                                        if (numeroRandom == 0) {
-                                            carta0 -= 1;
-                                        } else if (numeroRandom == 1) {
-                                            carta1 -= 1;
-                                        } else if (numeroRandom == 2) {
-                                            carta2 -= 1;
-                                        } else if (numeroRandom == 3) {
-                                            carta3 -= 1;
-                                        } else if (numeroRandom == 4) {
-                                            carta4 -= 1;
-                                        } else if (numeroRandom == 5) {
-                                            carta5 -= 1;
-                                        } else if (numeroRandom == 6) {
-                                            carta6 -= 1;
-                                        } else if (numeroRandom == 7) {
-                                            carta7 -= 1;
-                                        } else if (numeroRandom == 8) {
-                                            carta8 -= 1;
-                                        } else if (numeroRandom == 9) {
-                                            carta9 -= 1;
-                                        } else if (numeroRandom == 10) {
-                                            bloqueo -= 1;
-                                        } else if (numeroRandom == 11) {
-                                            reversa -= 1;
-                                        }
-                                    } else if (comida == 2) {
-                                        VFcartaComida = true;
-                                    }
-                                }
-                                tirada = validacionCartaTurnoJugador(p1, 1, cartaActual);
-                                cartaActual = tirada;
-                                if (ComodinSalto(tirada)) {
-                                    for (int i = 0; i < p1.length; i++) {
-                                        if (p1[i] == 10) {
-                                            p1 = removeElement(p1, i);
-                                        }
-                                    }
-                                    continue;
-                                } else {
-                                    if (!ComodinReversa(tirada)) {
-                                        turnoJugador1(tirada);
-                                    } else {
-                                        for (int i = 0; i < p1.length; i++) {
-                                            if (p1[i] == 11) {
-                                                p1 = removeElement(p1, i);
-                                            }
-                                        }
-                                        orden2 = true;
+                                        orden1 = true;
                                     }
                                 }
 
@@ -1970,11 +1797,16 @@ public class TestBots {
                             }
                         }
                     }
+                    boolean orden2 = false;
+                    while (!orden2) {
+                        System.out.println("IMPRIMIENDO DESDE ORDEN 2");
+
+                    }
                 }
             } else if (jugadoresTotales == 3) {
-                System.out.println("Jugando con tres wercos");
+                System.out.println("Jugando con tres bots");
             } else if (jugadoresTotales == 4) {
-                System.out.println("Jugando con cuatro wercos");
+                System.out.println("Jugando con cuatro bots");
             }
         }
     }
@@ -2144,34 +1976,16 @@ public class TestBots {
                 System.out.print("La carta que ingresaste no existe, intenta de nuevo: ");
                 cartaTirar = lector.nextInt();
             }
-            if (finalCartaTirar > (cartaActual + 1) || finalCartaTirar < (cartaActual - 1)) {
-                System.out.print("Solo puedes tirar una carta con una denominación por 1 numero mayor, el número igual o por un número menor al actual, intenta de nuevo: ");
-                cartaTirar = lector.nextInt();
-            }
+//            if (finalCartaTirar > (cartaActual + 1) || finalCartaTirar < (cartaActual - 1)) {
+//                System.out.print("Solo puedes tirar una carta con una denominación por 1 numero mayor, el número igual o por un número menor al actual, intenta de nuevo: ");
+//                cartaTirar = lector.nextInt();
+//            }
             else {
                 VFcartaTirar = true;
             }
         }
         return cartaTirar;
     }
-    public static int validacionCartaTurnoBot(int[] jugador, int nJugador, int cartaActual) {
-        Impresor(jugador);
-//        System.out.println("Turno del jugador " + nJugador);
-        int cartaTirar = nRandom(11);
-        boolean VFcartaTirar = false;
-        int cartaTirarFinal = 0;
-        while (!VFcartaTirar){
-            if (cartaTirar == cartaActual || cartaTirar == (cartaActual + 1) || cartaTirar == (cartaActual - 1)){
-                cartaTirarFinal = cartaTirar;
-                VFcartaTirar = true;
-            } else {
-                cartaTirar = nRandom(11);
-            }
-        }
-        System.out.println("Desde funcion validacion carta bot: " + cartaTirar);
-        return cartaTirarFinal;
-    }
-
 
     /*====== Comodin reversa ====== */
     public static boolean ComodinReversa(int carta) {
@@ -2362,6 +2176,7 @@ public class TestBots {
             }
         }
     }
+
     public static void turnoJugador3(int cartaTirar) {
         for (int i = 0; i <= p3.length; i++) {
             if (cartaTirar == i) {
@@ -2403,6 +2218,7 @@ public class TestBots {
             }
         }
     }
+
     public static void turnoJugador4(int cartaTirar) {
         for (int i = 0; i <= p4.length; i++) {
             if (cartaTirar == i) {
@@ -2416,40 +2232,6 @@ public class TestBots {
                     }
                     j++;
                 }
-                if (cartaTirar == 0) {
-                    carta0 += 1;
-                } else if (cartaTirar == 1) {
-                    carta1 += 1;
-                } else if (cartaTirar == 2) {
-                    carta2 += 1;
-                } else if (cartaTirar == 3) {
-                    carta3 += 1;
-                } else if (cartaTirar == 4) {
-                    carta4 += 1;
-                } else if (cartaTirar == 5) {
-                    carta5 += 1;
-                } else if (cartaTirar == 6) {
-                    carta6 += 1;
-                } else if (cartaTirar == 7) {
-                    carta7 += 1;
-                } else if (cartaTirar == 8) {
-                    carta8 += 1;
-                } else if (cartaTirar == 9) {
-                    carta9 += 1;
-                } else if (cartaTirar == 10) {
-                    bloqueo += 1;
-                } else if (cartaTirar == 11) {
-                    reversa += 1;
-                }
-            }
-        }
-    }
-    public static void turnoBot1(int cartaTirar) {
-        System.out.println("Pasando por turno bot");
-        for (int i = 0; i < bot1.length; i++) {
-            if (cartaTirar == bot1[i]) {
-                bot1 = removeElement(bot1,i);
-
                 if (cartaTirar == 0) {
                     carta0 += 1;
                 } else if (cartaTirar == 1) {
